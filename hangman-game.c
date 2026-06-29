@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#include "hangman.h"
+#include "hangman-game.h"
 
 char secret_word[WORD_LENGHT];
 int guesses[26];
@@ -11,7 +11,7 @@ int tries = 0;
 void guess() {
 	char guess;
 	printf("Which letter? ");
-	scaf(" %c", &guess);
+	scanf(" %c", &guess);
 
 	guesses[tries] = guess;
 	tries++;
@@ -37,7 +37,7 @@ void draw_hangman() {
 			printf("_ ");
 		}
 	}
-	printf("\n")
+	printf("\n");
 }
 
 void choose_word() {
@@ -65,11 +65,13 @@ void add_word() {
 	printf("Do you want to add a new word to the game? Y/N");
 	scanf(" %c", &add_word);
 
-	if(add_word == "Y") {
+	if(add_word == 'Y') {
 		char new_word[WORD_LENGHT];
 
 		printf("Enter the new word in capslock: ");
 		scanf("%s", new_word);
+
+		FILE* f;
 
 		f = fopen("palavras.txt", "r+");
 		if(f == 0) {
